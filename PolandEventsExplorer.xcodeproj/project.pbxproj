@@ -14,19 +14,11 @@
 			remoteGlobalIDString = B8A878102CE7CD43008FFE88;
 			remoteInfo = PolandEventsExplorer;
 		};
-		B8A8782D2CE7CD45008FFE88 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B8A878092CE7CD43008FFE88 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B8A878102CE7CD43008FFE88;
-			remoteInfo = PolandEventsExplorer;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B8A878112CE7CD43008FFE88 /* PolandEventsExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PolandEventsExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8A878222CE7CD45008FFE88 /* PolandEventsExplorerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolandEventsExplorerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B8A8782C2CE7CD45008FFE88 /* PolandEventsExplorerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolandEventsExplorerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -38,11 +30,6 @@
 		B8A878252CE7CD45008FFE88 /* PolandEventsExplorerTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = PolandEventsExplorerTests;
-			sourceTree = "<group>";
-		};
-		B8A8782F2CE7CD45008FFE88 /* PolandEventsExplorerUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = PolandEventsExplorerUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -62,13 +49,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B8A878292CE7CD45008FFE88 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -77,7 +57,6 @@
 			children = (
 				B8A878132CE7CD43008FFE88 /* PolandEventsExplorer */,
 				B8A878252CE7CD45008FFE88 /* PolandEventsExplorerTests */,
-				B8A8782F2CE7CD45008FFE88 /* PolandEventsExplorerUITests */,
 				B8A878122CE7CD43008FFE88 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,7 +66,6 @@
 			children = (
 				B8A878112CE7CD43008FFE88 /* PolandEventsExplorer.app */,
 				B8A878222CE7CD45008FFE88 /* PolandEventsExplorerTests.xctest */,
-				B8A8782C2CE7CD45008FFE88 /* PolandEventsExplorerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,6 +77,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B8A878362CE7CD45008FFE88 /* Build configuration list for PBXNativeTarget "PolandEventsExplorer" */;
 			buildPhases = (
+				B8A878472CE7CF31008FFE88 /* [Development] SwiftLint */,
 				B8A8780D2CE7CD43008FFE88 /* Sources */,
 				B8A8780E2CE7CD43008FFE88 /* Frameworks */,
 				B8A8780F2CE7CD43008FFE88 /* Resources */,
@@ -106,6 +85,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				B8A878732CE7E158008FFE88 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				B8A878132CE7CD43008FFE88 /* PolandEventsExplorer */,
@@ -140,29 +120,6 @@
 			productReference = B8A878222CE7CD45008FFE88 /* PolandEventsExplorerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		B8A8782B2CE7CD45008FFE88 /* PolandEventsExplorerUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B8A8783C2CE7CD45008FFE88 /* Build configuration list for PBXNativeTarget "PolandEventsExplorerUITests" */;
-			buildPhases = (
-				B8A878282CE7CD45008FFE88 /* Sources */,
-				B8A878292CE7CD45008FFE88 /* Frameworks */,
-				B8A8782A2CE7CD45008FFE88 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B8A8782E2CE7CD45008FFE88 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				B8A8782F2CE7CD45008FFE88 /* PolandEventsExplorerUITests */,
-			);
-			name = PolandEventsExplorerUITests;
-			packageProductDependencies = (
-			);
-			productName = PolandEventsExplorerUITests;
-			productReference = B8A8782C2CE7CD45008FFE88 /* PolandEventsExplorerUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -180,10 +137,6 @@
 						CreatedOnToolsVersion = 16.1;
 						TestTargetID = B8A878102CE7CD43008FFE88;
 					};
-					B8A8782B2CE7CD45008FFE88 = {
-						CreatedOnToolsVersion = 16.1;
-						TestTargetID = B8A878102CE7CD43008FFE88;
-					};
 				};
 			};
 			buildConfigurationList = B8A8780C2CE7CD43008FFE88 /* Build configuration list for PBXProject "PolandEventsExplorer" */;
@@ -195,6 +148,9 @@
 			);
 			mainGroup = B8A878082CE7CD43008FFE88;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B8A878712CE7E131008FFE88 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B8A878122CE7CD43008FFE88 /* Products */;
 			projectDirPath = "";
@@ -202,7 +158,6 @@
 			targets = (
 				B8A878102CE7CD43008FFE88 /* PolandEventsExplorer */,
 				B8A878212CE7CD45008FFE88 /* PolandEventsExplorerTests */,
-				B8A8782B2CE7CD45008FFE88 /* PolandEventsExplorerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -222,14 +177,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B8A8782A2CE7CD45008FFE88 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B8A878472CE7CF31008FFE88 /* [Development] SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Development] SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+			showEnvVarsInLog = 0;
 		};
-/* End PBXResourcesBuildPhase section */
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B8A8780D2CE7CD43008FFE88 /* Sources */ = {
@@ -246,13 +218,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B8A878282CE7CD45008FFE88 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -261,10 +226,9 @@
 			target = B8A878102CE7CD43008FFE88 /* PolandEventsExplorer */;
 			targetProxy = B8A878232CE7CD45008FFE88 /* PBXContainerItemProxy */;
 		};
-		B8A8782E2CE7CD45008FFE88 /* PBXTargetDependency */ = {
+		B8A878732CE7E158008FFE88 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B8A878102CE7CD43008FFE88 /* PolandEventsExplorer */;
-			targetProxy = B8A8782D2CE7CD45008FFE88 /* PBXContainerItemProxy */;
+			productRef = B8A878722CE7E158008FFE88 /* SwiftLintBuildToolPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -395,6 +359,7 @@
 				DEVELOPMENT_TEAM = 548J77AC83;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -406,7 +371,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.1;
@@ -434,6 +399,7 @@
 				DEVELOPMENT_TEAM = 548J77AC83;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -445,7 +411,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.1;
@@ -507,50 +473,6 @@
 			};
 			name = Release;
 		};
-		B8A8783D2CE7CD45008FFE88 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 548J77AC83;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
-				MACOSX_DEPLOYMENT_TARGET = 15.1;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "PEE-MG.PolandEventsExplorerUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_TARGET_NAME = PolandEventsExplorer;
-				XROS_DEPLOYMENT_TARGET = 2.1;
-			};
-			name = Debug;
-		};
-		B8A8783E2CE7CD45008FFE88 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 548J77AC83;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
-				MACOSX_DEPLOYMENT_TARGET = 15.1;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "PEE-MG.PolandEventsExplorerUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_TARGET_NAME = PolandEventsExplorer;
-				XROS_DEPLOYMENT_TARGET = 2.1;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -581,16 +503,26 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B8A8783C2CE7CD45008FFE88 /* Build configuration list for PBXNativeTarget "PolandEventsExplorerUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B8A8783D2CE7CD45008FFE88 /* Debug */,
-				B8A8783E2CE7CD45008FFE88 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B8A878712CE7E131008FFE88 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.57.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B8A878722CE7E158008FFE88 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8A878712CE7E131008FFE88 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B8A878092CE7CD43008FFE88 /* Project object */;
 }

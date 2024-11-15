@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  PolandEventsExplorer
-//
-//  Created by Mateusz Gozdzik on 15/11/2024.
-//
-
 import SwiftUI
 
 struct ContentView: View {
