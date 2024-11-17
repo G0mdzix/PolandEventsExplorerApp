@@ -4,6 +4,8 @@ struct DashboardView: View {
     
     @StateObject private var viewModel = DashboardViewModel()
     
+    @State private var isShowingDetails = false
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -13,10 +15,11 @@ struct DashboardView: View {
             .navigationBarItems(trailing: menuButton)
             .navigationBarTitle("Poland Explorer")
             .navigationTitle("Searchable Example")
+            .navigationDestination(isPresented: $isShowingDetails, destination: detailsView)
             .searchable(text: $viewModel.searchText)
         }
     }
-    
+        
     private var eventsList: some View {
         List {
             if viewModel.isLoading {
@@ -96,10 +99,16 @@ struct DashboardView: View {
                 .fixedSize(horizontal: false, vertical: true)
             
             item.image?.image
+                .frame(width: 256, height: 256)
+                .clipShape(.rect(cornerRadius: 25))
                 .defaultShadow(color: .textSecondary)
                 .padding(.bottom, 24)
             
             detailsStackInformation(for: item)
+        }
+        .onTapGesture {
+            viewModel.selectedEventId = item.id
+            isShowingDetails = true
         }
     }
     
@@ -137,6 +146,10 @@ struct DashboardView: View {
         .padding(.leading, 8)
         .padding(.bottom, 8)
         .fixedSize(horizontal: false, vertical: true)
+    }
+    
+    private func detailsView() -> some View {
+        DetailsView(eventId: viewModel.selectedEventId)
     }
 }
 

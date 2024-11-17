@@ -4,11 +4,12 @@ struct Venue: Codable {
     let city: City
     let state: EventState
     let address: Address
+    let country: Country?
 }
 
 extension Venue {
     enum CodingKeys: String, CodingKey {
-        case name, timezone, city, state, address
+        case name, timezone, city, state, address, country
     }
     
     init(from decoder: Decoder) throws {
@@ -18,5 +19,6 @@ extension Venue {
         city = try container.decode(City.self, forKey: .city)
         state = try container.decode(EventState.self, forKey: .state)
         address = try container.decode(Address.self, forKey: .address)
+        country = try? container.decode(Country.self, forKey: .country)
     }
 }
