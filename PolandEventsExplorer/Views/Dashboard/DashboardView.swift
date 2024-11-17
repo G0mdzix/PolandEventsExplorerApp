@@ -9,6 +9,7 @@ struct DashboardView: View {
             VStack {
                 eventsList
             }
+            .errorAlert(error: $viewModel.error)
             .navigationBarItems(trailing: menuButton)
             .navigationBarTitle("Poland Explorer")
             .navigationTitle("Searchable Example")
@@ -37,6 +38,7 @@ struct DashboardView: View {
                 }
             }
         }
+        .refreshable { viewModel.refreshEvents() }
     }
     
     private var menuButton: some View {

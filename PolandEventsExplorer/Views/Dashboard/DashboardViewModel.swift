@@ -7,10 +7,9 @@ final class DashboardViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var pageSize: PageSize = .ten
     @Published var searchText = ""
-    
+    @Published var error: APIError?
     @Published var mappedDashboardEvents: Set<EventsDashboardModel> = []
     
-    private var error: Error?
     private var page: Page?
     
     var searchResults: [EventsDashboardModel] {
@@ -31,6 +30,13 @@ final class DashboardViewModel: ObservableObject {
         fetchEvents()
     }
     
+    func refreshEvents() {
+        guard mappedDashboardEvents.isEmpty else { return }
+        mappedDashboardEvents.removeAll()
+        page = nil
+        fetchEvents()
+    }
+    
     func fetchEvents() {
         guard !isLoading else { return }
         isLoading = true
@@ -43,7 +49,7 @@ final class DashboardViewModel: ObservableObject {
                 page = eventsResponse.page
                 mapEvents(eventsResponse, to: &mappedDashboardEvents)
             } catch {
-                self.error = error
+                self.error = error as? APIError
             }
         }
         
