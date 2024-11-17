@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 struct EventImage: Codable {
     let ratio: String?
@@ -6,6 +7,23 @@ struct EventImage: Codable {
     let width: Int
     let height: Int
     let fallback: Bool
+    
+    var image: some View {
+        AsyncImage(url: URL(string: url)) { phase in
+            switch phase {
+            case .failure:
+                Image(systemName: "questionmark.square.fill")
+                    .font(.largeTitle)
+            case .success(let image):
+                image
+                    .resizable()
+            default:
+                ProgressView()
+            }
+        }
+        .frame(width: 256, height: 256)
+        .clipShape(.rect(cornerRadius: 25))
+    }
 }
 
 extension EventImage {

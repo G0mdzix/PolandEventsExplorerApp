@@ -4,7 +4,7 @@ import SwiftUI
 struct PolandEventsExplorerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DashboardView()
         }
     }
 }
