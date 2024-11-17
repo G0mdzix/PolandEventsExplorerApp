@@ -9,6 +9,7 @@ final class DashboardViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var error: APIError?
     @Published var mappedDashboardEvents: Set<EventsDashboardModel> = []
+    @Published var selectedEventId: String = ""
     
     private var page: Page?
     
