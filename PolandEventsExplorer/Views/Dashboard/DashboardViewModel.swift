@@ -8,17 +8,13 @@ final class DashboardViewModel: ObservableObject {
     @Published var pageSize: PageSize = .ten
     @Published var searchText = ""
     
-    @Published private var mappedDashboardEvents: [EventsDashboardModel] = [] {
-        didSet {
-            isLoading = false
-        }
-    }
+    @Published var mappedDashboardEvents: Set<EventsDashboardModel> = []
     
     private var error: Error?
     private var page: Page?
     
     var searchResults: [EventsDashboardModel] {
-        searchText.isEmpty ? mappedDashboardEvents : mappedDashboardEvents.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        mappedDashboardEvents.filter { $0.name.lowercased().contains(searchText.lowercased()) }
     }
     
     var isMorePagesAvailable: Bool {
@@ -39,7 +35,7 @@ final class DashboardViewModel: ObservableObject {
         guard !isLoading else { return }
         isLoading = true
         
-        Task { @MainActor in 
+        Task { @MainActor in
             do {
                 let eventsResponse = try await eventsService.searchEvents(
                     fetchSettings: EventFetchSettings(pageSize: pageSize, page: nextPageNumber)
@@ -48,13 +44,13 @@ final class DashboardViewModel: ObservableObject {
                 mapEvents(eventsResponse, to: &mappedDashboardEvents)
             } catch {
                 self.error = error
-                
-                isLoading = false
             }
         }
+        
+        isLoading = false
     }
     
-    private func mapEvents(_ eventsResponse: EventResponse, to mappedEvents: inout [EventsDashboardModel]) {
+    private func mapEvents(_ eventsResponse: EventResponse, to mappedEvents: inout Set<EventsDashboardModel>) {
         let newMappedEvents = eventsResponse.embedded.events.map {
             EventsDashboardModel(
                 id: $0.id,
@@ -65,9 +61,9 @@ final class DashboardViewModel: ObservableObject {
                 image: $0.images.first
             )
         }
-        
+
         if !newMappedEvents.isEmpty {
-            mappedEvents.append(contentsOf: newMappedEvents)
+            mappedEvents.formUnion(newMappedEvents) 
         }
     }
 }
