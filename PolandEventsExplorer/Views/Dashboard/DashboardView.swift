@@ -21,10 +21,15 @@ struct DashboardView: View {
             if viewModel.isLoading {
                 loadingRowView
             } else {
-                if viewModel.searchResults.isEmpty {
+                if !viewModel.searchText.isEmpty && viewModel.searchResults.isEmpty {
                     noSearchResultsView
                 } else {
-                    ForEach(viewModel.searchResults, id: \.id) { item in
+                    ForEach(
+                        viewModel.searchText.isEmpty
+                            ? Array(viewModel.mappedDashboardEvents)
+                            : viewModel.searchResults,
+                        id: \.id
+                    ) { item in
                         eventsListRow(for: item)
                     }
                     
@@ -89,8 +94,8 @@ struct DashboardView: View {
                 .fixedSize(horizontal: false, vertical: true)
             
             item.image?.image
-                .defaultShadow(color: .textPrimary)
-                .padding(.bottom, 16)
+                .defaultShadow(color: .textSecondary)
+                .padding(.bottom, 24)
             
             detailsStackInformation(for: item)
         }
@@ -99,12 +104,13 @@ struct DashboardView: View {
     private func detailsStackInformation(for item: EventsDashboardModel) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 16)
+                .stroke(.textSecondary, lineWidth: 2)
                 .foregroundColor(.mainBackground)
             
             VStack(alignment: .leading, spacing: .zero) {
                 detailsRowInformation(text: item.city, type: .city)
-                detailsRowInformation(text: item.date, type: .data)
                 detailsRowInformation(text: item.objectName, type: .objectName)
+                detailsRowInformation(text: item.date, type: .data)
             }
         }
         .padding(.bottom, 8)
@@ -122,6 +128,7 @@ struct DashboardView: View {
                 .foregroundColor(.textSecondary)
                 .font(.body)
                 .multilineTextAlignment(.center)
+                .italic()
             
             Spacer()
         }
