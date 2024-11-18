@@ -10,6 +10,12 @@ final class DashboardViewModel: ObservableObject {
     @Published var error: APIError?
     @Published var mappedDashboardEvents: Set<EventsDashboardModel> = []
     @Published var selectedEventId: String = ""
+    @Published var sortField: Field = .none
+    @Published var sortOption: Order = .none {
+        didSet {
+            refreshEvents()
+        }
+    }
     
     private var page: Page?
     
@@ -32,7 +38,7 @@ final class DashboardViewModel: ObservableObject {
     }
     
     func refreshEvents() {
-        guard mappedDashboardEvents.isEmpty else { return }
+        guard mappedDashboardEvents.isEmpty || sortField != .none else { return }
         mappedDashboardEvents.removeAll()
         page = nil
         fetchEvents()
@@ -45,7 +51,11 @@ final class DashboardViewModel: ObservableObject {
         Task { @MainActor in
             do {
                 let eventsResponse = try await eventsService.searchEvents(
-                    fetchSettings: EventFetchSettings(pageSize: pageSize, page: nextPageNumber)
+                    fetchSettings: EventFetchSettings(
+                        pageSize: pageSize,
+                        page: nextPageNumber,
+                        sortOption: .single(field: sortField, order: sortOption)
+                    )
                 )
                 page = eventsResponse.page
                 mapEvents(eventsResponse, to: &mappedDashboardEvents)
