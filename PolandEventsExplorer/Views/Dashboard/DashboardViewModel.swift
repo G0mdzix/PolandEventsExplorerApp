@@ -62,9 +62,9 @@ final class DashboardViewModel: ObservableObject {
             EventsDashboardModel(
                 id: $0.id,
                 name: $0.name,
-                date: $0.dates?.start.eventFullDate ?? "No date available",
-                city: $0.venuesResponse?.venues.first?.city.name ?? "No city information available",
-                objectName: $0.venuesResponse?.venues.first?.name ?? "No object name available",
+                date: $0.dates?.start.eventFullDate ?? StringHandler.NoData.noDate,
+                city: $0.venuesResponse?.venues.first?.city.name ?? StringHandler.NoData.noCity,
+                objectName: $0.venuesResponse?.venues.first?.name ?? StringHandler.NoData.noObject,
                 image: $0.images.first
             )
         }

@@ -10,15 +10,15 @@ enum APIError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalidResponse:
-            "Invalid response from the server."
+            StringHandler.APIErrorDescription.invalidResponse
         case .serverError(let statusCode):
-            "Server returned an error with status code \n\(statusCode)."
+            StringHandler.APIErrorDescription.serverError + "\(statusCode)"
         case .noData:
-            "No data was received from the server."
+            StringHandler.APIErrorDescription.noData
         case .decodingError:
-            "Failed to decode the data."
+            StringHandler.APIErrorDescription.decodingError
         case .networkError(let error):
-            "Network error occurred: \n\(error.localizedDescription)"
+            StringHandler.APIErrorDescription.networkError + "\(error.localizedDescription)"
         }
     }
 }
