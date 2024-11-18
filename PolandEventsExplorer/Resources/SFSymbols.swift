@@ -7,4 +7,6 @@ enum SFSymbols {
     static let dollar = "dollarsign.circle"
     static let artist = "person.2"
     static let ellipsis = "ellipsis.circle.fill"
+    static let cheveronUp = "chevron.up"
+    static let cheveronDown = "chevron.down"
 }

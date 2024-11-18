@@ -8,7 +8,9 @@ struct DashboardView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
+            VStack(spacing: .zero) {
+                sortViewStack
+                
                 eventsList
             }
             .errorAlert(error: $viewModel.error)
@@ -17,6 +19,48 @@ struct DashboardView: View {
             .navigationTitle(StringHandler.DashboardView.navigationTitle)
             .navigationDestination(isPresented: $isShowingDetails, destination: detailsView)
             .searchable(text: $viewModel.searchText)
+        }
+    }
+    
+    private var sortViewStack: some View {
+        HStack(spacing: Spacings.small) {
+            Spacer()
+            
+            sortList
+            
+            sortButtonsStack
+        }
+        .padding(.horizontal, Spacings.medium)
+    }
+    
+    private var sortList: some View {
+        ScrollView(.horizontal) {
+            HStack(spacing: Spacings.medium) {
+                ForEach(Field.allCases, id: \.self) { sortType in
+                    if sortType != .none {
+                        Button {
+                            viewModel.sortField = sortType
+                        } label: {
+                            sortListItemView(item: sortType)
+                        }
+                    }
+                }
+            }
+            .padding(.all, Spacings.small)
+        }
+    }
+    
+    private var sortButtonsStack: some View {
+        HStack(spacing: Spacings.small) {
+            sortButtonView(symbol: SFSymbols.cheveronUp, action: { viewModel.sortOption = .ascending })
+            
+            sortButtonView(symbol: SFSymbols.cheveronDown, action: { viewModel.sortOption = .descending })
+                .disabled(viewModel.sortField == .id)
+            
+            sortButtonView(symbol: SFSymbols.xmark, action: {
+                viewModel.sortField = .none
+                viewModel.sortOption = .none
+            })
         }
     }
         
@@ -88,6 +132,18 @@ struct DashboardView: View {
         .display(if: viewModel.isMorePagesAvailable && viewModel.searchText.isEmpty)
     }
     
+    private func sortButtonView(symbol: String, action: @escaping () -> Void) -> some View {
+        Button {
+            action()
+        } label: {
+            Label(String(), systemImage: symbol)
+                .labelStyle(.iconOnly)
+                .font(.headline)
+                .foregroundColor(.primary)
+                .clipShape(Circle())
+        }
+    }
+    
     private func eventsListRow(for item: EventsDashboardModel) -> some View {
         VStack(alignment: .center, spacing: .zero) {
             Text(item.name)
@@ -110,6 +166,17 @@ struct DashboardView: View {
             viewModel.selectedEventId = item.id
             isShowingDetails = true
         }
+    }
+    
+    private func sortListItemView(item: Field) -> some View {
+        Text(item.rawValue)
+            .font(.headline)
+            .foregroundColor(viewModel.sortField == item ? Color.accentColor : .secondaryBackground)
+            .background {
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(.inverseMainBackground)
+                    .padding(.all, -4)
+            }
     }
     
     private func detailsStackInformation(for item: EventsDashboardModel) -> some View {
