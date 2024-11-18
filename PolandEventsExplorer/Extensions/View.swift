@@ -34,9 +34,9 @@ extension View {
     ) -> some View {
         self.alert(isPresented: .constant(error.wrappedValue != nil)) {
             Alert(
-                title: Text("⚠️ Error ⚠️"),
-                message: Text(error.wrappedValue?.errorDescription ?? "Unknown error"),
-                dismissButton: .default(Text("OK")) {
+                title: Text(StringHandler.ErrorAlert.title),
+                message: Text(error.wrappedValue?.errorDescription ?? StringHandler.ErrorAlert.unknownError),
+                dismissButton: .default(Text(StringHandler.ErrorAlert.dismissButton)) {
                     error.wrappedValue = nil
                     onDismiss?() 
                 }

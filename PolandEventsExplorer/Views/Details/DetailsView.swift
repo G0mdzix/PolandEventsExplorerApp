@@ -34,51 +34,22 @@ struct DetailsView: View {
         .ignoresSafeArea(.container, edges: .top)
     }
     
-    private var content: some View {
-        ScrollView {
-            VStack(alignment: .center, spacing: .zero) {
-                imageSlider
-                    .padding(.bottom, Spacings.large)
-                
-                VStack(alignment: .leading, spacing: .zero) {
-                    detailsViewTitle
-                    
-                    artistView
-                        .padding(.bottom, Spacings.large)
-                               
-                    detailsInfoTitle
-                    
-                    detailsInfoStack
-                }
-                .padding(.horizontal, Spacings.medium)
-                
-                seatMapView
-            }
-            .redacted(reason: viewModel.mappedEventDetails == nil ? .placeholder : [])
-        }
-        .redacted(reason: viewModel.mappedEventDetails == nil ? .placeholder : [])
-        .errorAlert(error: $viewModel.error, onDismiss: { presentationMode.wrappedValue.dismiss() })
-        .navigationBarItems(leading: backButton)
-        .navigationBarBackButtonHidden(true)
-        .ignoresSafeArea(.container, edges: .top)
-    }
-    
     private var artistView: some View {
         VStack(alignment: .center, spacing: .zero) {
             divider
-                .padding(.bottom, 32)
+                .padding(.bottom, Spacings.extraLarge)
             
             VStack(spacing: Spacings.small) {
                 icon(SFSymbols.artist)
                     .padding(.top, -Spacings.medium)
                 
-                twoPartText("Artists: ", viewModel.mappedEventDetails?.bandName ?? "")
-                    .multilineTextAlignment(.center)
+                artistLabels
                 
-                twoPartText("Genre: ", viewModel.mappedEventDetails?.genre ?? "")
+                twoPartText(StringHandler.DetailsView.genreLabel, viewModel.eventDetailsInfo.genre)
+                    .display(if: viewModel.shouldShowGenreLabel)
             }
             .background {
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: Constants.rectangleCornerRadius)
                     .stroke(.textSecondary, lineWidth: 2)
                     .foregroundColor(.secondaryBackground)
                     .defaultShadow(color: .textPrimary)
@@ -86,6 +57,7 @@ struct DetailsView: View {
                     .padding(.vertical, -Spacings.small / 2)
             }
         }
+        .display(if: viewModel.shouldShowGenreLabel && viewModel.shouldShowArtistLabels)
     }
     
     private var divider: some View {
@@ -96,7 +68,7 @@ struct DetailsView: View {
     }
     
     private var detailsViewTitle: some View {
-        Text(viewModel.mappedEventDetails?.name ?? "")
+        Text(viewModel.eventDetailsInfo.name)
             .foregroundColor(.textPrimary)
             .font(.largeTitle)
             .fontWeight(.heavy)
@@ -104,7 +76,7 @@ struct DetailsView: View {
     }
     
     private var detailsInfoTitle: some View {
-        Text("About the event: ")
+        Text(StringHandler.DetailsView.detailsInfoTitle)
             .foregroundColor(.textSecondary)
             .font(.headline)
             .fontWeight(.bold)
@@ -115,29 +87,29 @@ struct DetailsView: View {
         VStack(alignment: .leading, spacing: .zero) {
             detailsStackRow(
                 image: SFSymbols.calendar,
-                title: viewModel.mappedEventDetails?.fullDate ?? "",
-                description: viewModel.mappedEventDetails?.timezone ?? "",
-                additionalDescription: viewModel.mappedEventDetails?.time ?? ""
+                title: viewModel.eventDetailsInfo.fullDate,
+                description: viewModel.eventDetailsInfo.timezone,
+                additionalDescription: viewModel.eventDetailsInfo.time
             )
             .display(if: viewModel.shouldShowCalendarRow)
             
             detailsStackRow(
                 image: SFSymbols.location,
-                title: viewModel.mappedEventDetails?.country ?? "",
-                additionalTitle: viewModel.mappedEventDetails?.city ?? ""
+                title: viewModel.eventDetailsInfo.country,
+                additionalTitle: viewModel.eventDetailsInfo.city
             )
             .display(if: viewModel.shouldShowLocationRow)
             
             detailsStackRow(
                 image: SFSymbols.building,
-                title: viewModel.mappedEventDetails?.objectName ?? "",
-                description: viewModel.mappedEventDetails?.address ?? ""
+                title: viewModel.eventDetailsInfo.objectName,
+                description: viewModel.eventDetailsInfo.address
             )
             .display(if: viewModel.shouldShowBuildingRow)
             
             detailsStackRow(
                 image: SFSymbols.dollar,
-                title: "Price range for tickets: ",
+                title: StringHandler.DetailsView.priceRangeTitle,
                 description: viewModel.priceRangeString
             )
             .display(if: viewModel.shouldShowPriceRangerRow)
@@ -148,17 +120,33 @@ struct DetailsView: View {
     private var imageSlider: some View {
         VStack(spacing: .zero) {
             TabView {
-                ForEach(0..<(viewModel.mappedEventDetails?.gallery.count ?? 0), id: \.self) { index in
-                    viewModel.mappedEventDetails?.gallery[index].image
+                ForEach(0..<(viewModel.eventDetailsInfo.gallery.count), id: \.self) { index in
+                    viewModel.eventDetailsInfo.gallery[index].image
                         .ignoresSafeArea()
                 }
             }
             .ignoresSafeArea()
-            .frame(height: 250)
+            .frame(height: Constants.imageHeight)
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
             
             Spacer()
         }
+    }
+    
+    private var artistLabels: some View {
+        VStack(spacing: .zero) {
+            Text(StringHandler.DetailsView.artistLabel)
+                .foregroundColor(.textPrimary)
+                .font(.headline)
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
+            
+            Text(viewModel.eventDetailsInfo.bandName)
+                .foregroundColor(.textSecondary)
+                .font(.body)
+                .multilineTextAlignment(.center)
+        }
+        .display(if: viewModel.shouldShowArtistLabels)
     }
     
     private var backButton: some View {
@@ -174,13 +162,13 @@ struct DetailsView: View {
     
     @ViewBuilder private var seatMapView: some View {
         VStack(spacing: .zero) {
-            Text("Seat map")
+            Text(StringHandler.DetailsView.seatMapTitle)
                 .foregroundColor(.textPrimary)
                 .font(.largeTitle)
                 .fontWeight(.heavy)
                 .padding(.vertical, Spacings.medium)
             
-            AsyncImage(url: URL(string: viewModel.mappedEventDetails?.layoutImage ?? "")) { phase in
+            AsyncImage(url: URL(string: viewModel.eventDetailsInfo.layoutImage)) { phase in
                 switch phase {
                 case .failure:
                     Image(systemName: SFSymbols.questionmark)
@@ -188,7 +176,7 @@ struct DetailsView: View {
                 case .success(let image):
                     image
                         .resizable()
-                        .frame(height: 200)
+                        .frame(height: Constants.seatMapHeight)
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, Spacings.extraLarge)
                 default:
@@ -247,13 +235,25 @@ struct DetailsView: View {
         Image(systemName: image)
             .resizable()
             .foregroundColor(.mainBackground)
-            .frame(width: 20, height: 20)
+            .frame(width: Constants.circleSize / 2, height: Constants.circleSize / 2)
             .aspectRatio(contentMode: .fit)
             .bold()
-            .makeStrokeCircleBackground(color: .inverseMainBackground, size: 40, strokeColor: .mainBackground, lineWidth: 2)
+            .makeStrokeCircleBackground(
+                color: .inverseMainBackground,
+                size: Constants.circleSize,
+                strokeColor: .mainBackground,
+                lineWidth: 2
+            )
     }
 }
 
 #Preview {
     DetailsView(eventId: "")
+}
+
+private enum Constants {
+    static let circleSize: CGFloat = 40
+    static let seatMapHeight: CGFloat = 200
+    static let imageHeight: CGFloat = 250
+    static let rectangleCornerRadius: CGFloat = 16
 }

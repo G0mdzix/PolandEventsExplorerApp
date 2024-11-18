@@ -13,8 +13,8 @@ struct DashboardView: View {
             }
             .errorAlert(error: $viewModel.error)
             .navigationBarItems(trailing: menuButton)
-            .navigationBarTitle("Poland Explorer")
-            .navigationTitle("Searchable Example")
+            .navigationBarTitle(StringHandler.DashboardView.navigationBarTitle)
+            .navigationTitle(StringHandler.DashboardView.navigationTitle)
             .navigationDestination(isPresented: $isShowingDetails, destination: detailsView)
             .searchable(text: $viewModel.searchText)
         }
@@ -46,7 +46,7 @@ struct DashboardView: View {
     
     private var menuButton: some View {
         Menu {
-            Picker("Pick page size", selection: $viewModel.pageSize) {
+            Picker(StringHandler.DashboardView.pageSizePickerTitle, selection: $viewModel.pageSize) {
                 ForEach(PageSize.allCases) { pageSize in
                     HStack(spacing: .zero) {
                         Text(pageSize.rawValue)
@@ -56,7 +56,7 @@ struct DashboardView: View {
             }
             .pickerStyle(.menu)
         } label: {
-            Label(String(), systemImage: "ellipsis.circle.fill")
+            Label(String(), systemImage: SFSymbols.ellipsis)
                 .labelStyle(.iconOnly)
                 .font(.headline)
                 .foregroundColor(.primary)
@@ -66,11 +66,11 @@ struct DashboardView: View {
     
     private var noSearchResultsView: some View {
         VStack(alignment: .leading, spacing: .zero) {
-            Text("No events found")
+            Text(StringHandler.DashboardView.noSearchResultsTitle)
                 .font(.title)
                 .foregroundColor(.textPrimary)
             
-            Text("Search only works for events that are already loaded!")
+            Text(StringHandler.DashboardView.noSearchResultsDescription)
                 .font(.subheadline)
                 .foregroundColor(.textSecondary)
         }
@@ -95,14 +95,14 @@ struct DashboardView: View {
                 .fontWeight(.heavy)
                 .font(.title2)
                 .foregroundColor(.textPrimary)
-                .padding(.vertical, 8)
+                .padding(.vertical, Spacings.small)
                 .fixedSize(horizontal: false, vertical: true)
             
             item.image?.image
-                .frame(width: 256, height: 256)
-                .clipShape(.rect(cornerRadius: 25))
+                .frame(width: Constants.imageSize, height: Constants.imageSize)
+                .clipShape(.rect(cornerRadius: Constants.imageCornerRadius))
                 .defaultShadow(color: .textSecondary)
-                .padding(.bottom, 24)
+                .padding(.bottom, Spacings.large)
             
             detailsStackInformation(for: item)
         }
@@ -114,7 +114,7 @@ struct DashboardView: View {
     
     private func detailsStackInformation(for item: EventsDashboardModel) -> some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: Spacings.medium)
                 .stroke(.textSecondary, lineWidth: 2)
                 .foregroundColor(.mainBackground)
             
@@ -124,7 +124,7 @@ struct DashboardView: View {
                 detailsRowInformation(text: item.date, type: .data)
             }
         }
-        .padding(.bottom, 8)
+        .padding(.bottom, Spacings.small)
     }
     
     private func detailsRowInformation(text: String, type: DashboardDetailsRowEnum) -> some View {
@@ -133,7 +133,7 @@ struct DashboardView: View {
                 .foregroundColor(.textPrimary)
                 .font(.headline)
                 .fontWeight(.bold)
-                .padding(.trailing, 4)
+                .padding(.trailing, Spacings.small / 2)
             
             Text(text)
                 .foregroundColor(.textSecondary)
@@ -143,8 +143,8 @@ struct DashboardView: View {
             
             Spacer()
         }
-        .padding(.leading, 8)
-        .padding(.bottom, 8)
+        .padding(.leading, Spacings.small)
+        .padding(.bottom, Spacings.small)
         .fixedSize(horizontal: false, vertical: true)
     }
     
@@ -155,4 +155,9 @@ struct DashboardView: View {
 
 #Preview {
     DashboardView()
+}
+
+private enum Constants {
+    static let imageSize: CGFloat = 256
+    static let imageCornerRadius: CGFloat = 25
 }
