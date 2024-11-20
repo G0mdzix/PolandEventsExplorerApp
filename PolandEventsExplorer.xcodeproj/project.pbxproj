@@ -21,9 +21,25 @@
 		B8A878222CE7CD45008FFE88 /* PolandEventsExplorerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolandEventsExplorerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		B8FDDE4A2CEDF90D00CCD1BB /* Exceptions for "PolandEventsExplorer" folder in "PolandEventsExplorerTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/Mock/RouterMock.swift,
+				Utilities/Networking/RequestBuilder.swift,
+				Utilities/Networking/RouterProtocol.swift,
+				Utilities/UniqueURLHelper/UniqueURLHelper.swift,
+			);
+			target = B8A878212CE7CD45008FFE88 /* PolandEventsExplorerTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B8A878132CE7CD43008FFE88 /* PolandEventsExplorer */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B8FDDE4A2CEDF90D00CCD1BB /* Exceptions for "PolandEventsExplorer" folder in "PolandEventsExplorerTests" target */,
+			);
 			path = PolandEventsExplorer;
 			sourceTree = "<group>";
 		};
